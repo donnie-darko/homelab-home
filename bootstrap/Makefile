@@ -8,7 +8,8 @@ namespace:
 
 .PHONY: argocd
 argocd:
-	cd argocd && ./apply.sh
+# https://github.com/khuedoan/homelab/issues/102
+	kubectl get customresourcedefinitions.apiextensions.k8s.io applications.argoproj.io applicationsets.argoproj.io > /dev/null || kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml && cd argocd && ./apply.sh
 
 .PHONY: root
 root:
